@@ -78,6 +78,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: tfplan
+        run: echo ls
         path: terraform/artifacts
         
     # Create string output of Terraform Plan
@@ -85,7 +86,7 @@ jobs:
       id: tf-plan-string
       working-directory: "./infrastructure/global"
       run: |
-        TERRAFORM_PLAN=$(terraform show -no-color tfplan)
+        TERRAFORM_PLAN=$(terraform show tfplan)
         
         delimiter="$(openssl rand -hex 8)"
         echo "summary<<${delimiter}" >> $GITHUB_OUTPUT

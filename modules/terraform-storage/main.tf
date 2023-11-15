@@ -10,7 +10,6 @@ resource "azurerm_storage_account" "sa" {
   #checkov:skip=CKV_AZURE_206:Ensure that Storage Accounts use replication
   #checkov:skip=CKV_AZURE_190:Ensure that Storage blobs restrict public access
   #checkov:skip=CKV2_AZURE_41:Ensure storage account is configured with SAS expiration policy
-  #checkov:skip=CKV2_AZURE_21:Ensure Storage logging is enabled for Blob service for read requests
   #checkov:skip=CKV2_AZURE_33:Ensure storage account is configured with private endpoint
   #checkov:skip=CKV2_AZURE_40:Ensure storage account is not configured with Shared Key authorization
   #checkov:skip=CKV2_AZURE_1:Ensure storage for critical data are encrypted with Customer Managed Key
@@ -25,6 +24,7 @@ resource "azurerm_storage_account" "sa" {
 }
 
 resource "azurerm_storage_container" "sct" {
+  #checkov:skip=CKV2_AZURE_21:Ensure Storage logging is enabled for Blob service for read requests
   name                 = "terraform-state"
   storage_account_name = azurerm_storage_account.sa.name
 }

@@ -8,13 +8,15 @@ resource "azurerm_container_registry" "acr" {
   location            = var.location
   sku                 = "Standard"
   admin_enabled       = false
+  # Premium Only
   trust_policy {
-    enabled = true
+    enabled = false
   }
- # retention_policy {
- #   enabled = true
- #   days    = 7
- # }
+  # Premium Only
+  retention_policy {
+    enabled = false
+    days    = 7
+  }
   quarantine_policy_enabled     = false
   public_network_access_enabled = false
   tags                          = var.tags

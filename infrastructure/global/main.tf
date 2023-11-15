@@ -33,7 +33,7 @@ module "acr" {
   workspace           = var.workspace
   location            = azurerm_resource_group.rg.location
   environment         = var.environment
-  resource-group-name = azurerm_resource_group.rg.name
+  resource_group_name = azurerm_resource_group.rg.name
   tags                = local.tags
 }
 

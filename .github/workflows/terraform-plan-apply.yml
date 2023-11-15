@@ -155,4 +155,4 @@ jobs:
     # Terraform Apply
     - name: Terraform Apply
       working-directory: "./infrastructure/global"
-      run: terraform apply -auto-approve ./tf.plan
+      run: terraform apply -auto-approve ./tf.plan/tf.plan

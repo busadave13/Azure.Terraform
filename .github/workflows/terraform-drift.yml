@@ -50,7 +50,7 @@ jobs:
         working-directory: infrastructure/global
         run: |
           export exitcode=0
-          terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+          terraform plan -detailed-exitcode -no-color -out tfplan --var-file=parameters.staging.tfvars || export exitcode=$?
 
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
 

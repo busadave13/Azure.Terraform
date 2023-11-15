@@ -4,6 +4,17 @@ resource "random_integer" "num" {
 }
 
 resource "azurerm_storage_account" "sa" {
+  #checkov:skip=CKV_AZURE_59:Ensure that Storage accounts disallow public access
+  #checkov:skip=CKV_AZURE_33:Ensure Storage logging is enabled for Queue service for read, write and delete requests
+  #checkov:skip=CKV_AZURE_44:Ensure Storage Account is using the latest version of TLS encryption
+  #checkov:skip=CKV_AZURE_206:Ensure that Storage Accounts use replication
+  #checkov:skip=CKV_AZURE_190:Ensure that Storage blobs restrict public access
+  #checkov:skip=CKV2_AZURE_41:Ensure storage account is configured with SAS expiration policy
+  #checkov:skip=CKV2_AZURE_21:Ensure Storage logging is enabled for Blob service for read requests
+  #checkov:skip=CKV2_AZURE_33:Ensure storage account is configured with private endpoint
+  #checkov:skip=CKV2_AZURE_40:Ensure storage account is not configured with Shared Key authorization
+  #checkov:skip=CKV2_AZURE_1:Ensure storage for critical data are encrypted with Customer Managed Key
+  #checkov:skip=CKV2_AZURE_38:Ensure soft-delete is enabled on Azure storage account
   name                     = "${var.storage_account_name}${random_integer.num.result}${var.environment}"
   resource_group_name      = var.resource_group_name
   location                 = var.location

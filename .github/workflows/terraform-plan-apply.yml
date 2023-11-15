@@ -35,6 +35,8 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        run: mkdir -p terraform/artifacts
 
     # Install the latest version of the Terraform CLI
     - name: Setup Terraform
@@ -76,7 +78,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: tfplan
-        path: tfplan
+        path: terraform/artifacts
         
     # Create string output of Terraform Plan
     - name: Create String Output

@@ -2,9 +2,9 @@ name: 'Terraform Plan/Apply'
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #   - main
+  push:
+    branches:
+    - main
   # pull_request:
   #   branches:
   #   - main
@@ -76,7 +76,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: deployment-artifacts
-        path: infrastructure/global/tfplan
+        path: infrastructure/global/tf.plan
         
     # Create string output of Terraform Plan
     - name: Create String Output
@@ -146,7 +146,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: deployment-artifacts
-        path: infrastructure/global/tfplan
+        path: infrastructure/global/tf.plan
 
     - name: Display structure of downloaded files
       working-directory: "./infrastructure/global"      
@@ -155,4 +155,4 @@ jobs:
     # Terraform Apply
     - name: Terraform Apply
       working-directory: "./infrastructure/global"
-      run: terraform apply -auto-approve tfplan
+      run: terraform apply -auto-approve tf.plan

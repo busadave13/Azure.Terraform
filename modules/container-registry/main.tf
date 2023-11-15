@@ -19,6 +19,6 @@ resource "azurerm_container_registry" "acr" {
     days    = 7
   }
   quarantine_policy_enabled     = false
-  public_network_access_enabled = false
+  public_network_access_enabled = true
   tags                          = var.tags
 }

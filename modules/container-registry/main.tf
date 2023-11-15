@@ -13,7 +13,7 @@ resource "azurerm_container_registry" "acr" {
     enabled = true
     days    = 7
   }
-  quarantine_policy_enabled     = true
+  quarantine_policy_enabled     = false
   public_network_access_enabled = false
   tags                          = var.tags
 }

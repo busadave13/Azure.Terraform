@@ -149,8 +149,8 @@ jobs:
         path: infrastructure/global/tfplan
 
     - name: Display structure of downloaded files
+      working-directory: "./infrastructure/global"      
       run: ls -R
-      working-directory: infrastructure/global
   
     # Terraform Apply
     - name: Terraform Apply

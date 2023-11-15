@@ -16,4 +16,5 @@ terraform apply tf.plan
 ```
 
 ### References
-[Git Example](https://github.com/Azure-Samples/terraform-github-actions)
+[Github Example](https://github.com/Azure-Samples/terraform-github-actions)
+[Azure Docs](https://learn.microsoft.com/en-us/devops/deliver/iac-github-actions)

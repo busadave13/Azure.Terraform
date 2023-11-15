@@ -1,7 +1,7 @@
 variable "environment" {}
 variable "location" {}
 variable "workspace" {}
-variable "resource-group-name" {}
+variable "resource_group_name" {}
 
 variable "tags" {
   description = "The tags to use for all resources."

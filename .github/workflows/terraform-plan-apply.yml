@@ -75,6 +75,7 @@ jobs:
     - name: Publish Terraform Plan
       uses: actions/upload-artifact@v3
       with:
+        name: deployment-artifacts
         path: infrastructure/global/tfplan
         
     # Create string output of Terraform Plan
@@ -144,8 +145,13 @@ jobs:
     - name: Download Terraform Plan
       uses: actions/download-artifact@v3
       with:
+        name: deployment-artifacts
         path: infrastructure/global/tfplan
 
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: infrastructure/global
+  
     # Terraform Apply
     - name: Terraform Apply
       working-directory: "./infrastructure/global"

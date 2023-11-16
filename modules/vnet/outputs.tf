@@ -6,10 +6,14 @@ output "vent_name" {
   value = azurerm_virtual_network.vnet.name
 }
 
-output "vnet_cluster_subnet_id" {
-  value = azurerm_subnet.clusterSubnet.id
+output "system_subnet_id" {
+  value = azurerm_subnet.system.id
 }
 
-output "snat_prefix_ids" {
-  value = azurerm_public_ip_prefix.snat.*.id
+output "worker_subnet_id" {
+  value = azurerm_subnet.worker.id
+}
+
+output "container_app_subnet_id" {
+  value = azurerm_subnet.container_app.id
 }

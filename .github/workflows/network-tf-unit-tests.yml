@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
   # push:
 
-env:
-  WORKING_DIRECTORY: ./infrastructure/network
-
 jobs:
   terraform-unit-tests:
     name: "Terraform Unit Tests"

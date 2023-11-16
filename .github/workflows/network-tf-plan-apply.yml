@@ -1,10 +1,10 @@
-name: 'Terraform Plan/Apply'
+name: 'Network Terraform Plan/Apply'
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
+  #push:
+  #  branches:
+  #  - main
   # pull_request:
   #   branches:
   #   - main
@@ -30,6 +30,9 @@ jobs:
       ARM_SKIP_PROVIDER_REGISTRATION: true
     outputs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
+    defaults:
+      run:
+        working-directory: ./infrastructure/network
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -44,20 +47,17 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      working-directory: "./infrastructure/global"
       run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     # Will fail the build if not
     - name: Terraform Format
-      working-directory: "./infrastructure/global"
       run: terraform fmt -check
 
     # Generates an execution plan for Terraform
     # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
     - name: Terraform Plan
       id: tf-plan      
-      working-directory: "./infrastructure/global"
       run: |
         export exitcode=0
         terraform plan -detailed-exitcode -out tf.plan --var-file=parameters.staging.tfvars || export exitcode=$?
@@ -81,7 +81,6 @@ jobs:
     # Create string output of Terraform Plan
     - name: Create String Output
       id: tf-plan-string
-      working-directory: "./infrastructure/global"
       run: |
         TERRAFORM_PLAN=$(terraform show tf.plan)
         
@@ -148,11 +147,9 @@ jobs:
         name: deployment-artifacts
         path: infrastructure/global/tf.plan
 
-    - name: Display structure of downloaded files
-      working-directory: "./infrastructure/global"      
+    - name: Display structure of downloaded files 
       run: ls -R
   
     # Terraform Apply
     - name: Terraform Apply
-      working-directory: "./infrastructure/global"
       run: terraform apply -auto-approve ./tf.plan/tf.plan

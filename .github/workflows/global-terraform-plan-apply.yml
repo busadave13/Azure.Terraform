@@ -76,6 +76,9 @@ jobs:
           fi
 
       - name: Display structure of downloaded files
+        run: ls
+
+      - name: Display structure of downloaded files
         run: ls -R
 
       # Save plan to artifacts
@@ -83,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deployment-artifacts
-          path: ./tfplan
+          path: "**/tfplan"
 
       # Create string output of Terraform Plan
       - name: Create String Output

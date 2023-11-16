@@ -60,7 +60,7 @@ jobs:
       id: tf-plan      
       run: |
         export exitcode=0
-        terraform plan -detailed-exitcode -out tf.plan --var-file=parameters.staging.tfvars || export exitcode=$?
+        terraform plan -detailed-exitcode -no-color -out tf.plan --var-file=parameters.staging.tfvars || export exitcode=$?
 
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
         
@@ -76,13 +76,13 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: deployment-artifacts
-        path: tf.plan
+        path: infrastructure/network/tf.plan
         
     # Create string output of Terraform Plan
     - name: Create String Output
       id: tf-plan-string
       run: |
-        TERRAFORM_PLAN=$(terraform show tf.plan)
+        TERRAFORM_PLAN=$(terraform show -no-color tf.plan)
         
         delimiter="$(openssl rand -hex 8)"
         echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
@@ -144,11 +144,11 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: deployment-artifacts
-        path: tf.plan
+        path: infrastructure/network/tf.plan
 
     - name: Display structure of downloaded files 
       run: ls -R
   
     # Terraform Apply
     - name: Terraform Apply
-      run: terraform apply -auto-approve tf.plan
+      run: terraform apply -auto-approve ./tf.plan/tf.plan

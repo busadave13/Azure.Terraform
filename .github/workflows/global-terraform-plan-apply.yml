@@ -75,6 +75,10 @@ jobs:
             exit 0
           fi
 
+      
+      - name: Display structure of downloaded files
+        run: ls -R
+
       # Save plan to artifacts
       - name: Publish Terraform Plan
         uses: actions/upload-artifact@v3

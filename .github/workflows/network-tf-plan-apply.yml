@@ -76,7 +76,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: deployment-artifacts
-        path: infrastructure/global/tf.plan
+        path: tf.plan
         
     # Create string output of Terraform Plan
     - name: Create String Output
@@ -137,7 +137,6 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      working-directory: "./infrastructure/global"
       run: terraform init
 
     # Download saved plan from artifacts  
@@ -145,11 +144,11 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: deployment-artifacts
-        path: infrastructure/global/tf.plan
+        path: tf.plan
 
     - name: Display structure of downloaded files 
       run: ls -R
   
     # Terraform Apply
     - name: Terraform Apply
-      run: terraform apply -auto-approve ./tf.plan/tf.plan
+      run: terraform apply -auto-approve tf.plan

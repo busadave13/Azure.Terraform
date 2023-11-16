@@ -1,11 +1,11 @@
-name: "Terraform Unit Tests"
+name: "network terraform unit tests"
 
 on:
   workflow_dispatch:
   # push:
 
 env:
-  WORKING_DIRECTORY: "./infrastructure/network"
+  WORKING_DIRECTORY: ./infrastructure/network
 
 jobs:
   terraform-unit-tests:
@@ -23,17 +23,17 @@ jobs:
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        working-directory: $WORKING_DIRECTORY
+        working-directory: "$WORKING_DIRECTORY"
         run: terraform init -backend=false
 
       # Validate terraform files
       - name: Terraform Validate
-        working-directory: $WORKING_DIRECTORY
+        working-directory: "$WORKING_DIRECTORY"
         run: terraform validate
 
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
-        working-directory: $WORKING_DIRECTORY
+        working-directory: "$WORKING_DIRECTORY"
         run: terraform fmt -check -recursive
 
       # Perform a security scan of the terraform code using checkov

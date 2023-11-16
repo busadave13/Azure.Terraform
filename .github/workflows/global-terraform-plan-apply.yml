@@ -144,10 +144,6 @@ jobs:
     - name: Terraform Init
       run: terraform init -reconfigure
     
-     # Set terraform workspace
-    - name: Terraform Workspace
-      run: terraform workspace select -or-create global
-
     # Download saved plan from artifacts  
     - name: Download Terraform Plan
       uses: actions/download-artifact@v3

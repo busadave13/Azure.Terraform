@@ -10,7 +10,7 @@ terraform {
     resource_group_name  = "terraform-state-staging"
     container_name       = "terraform-state"
     key                  = "terraform.tfstate"
-    storage_account_name = "tfstate8684staging"
+    storage_account_name = "tfstate4213staging"
     use_oidc             = true
   }
 }

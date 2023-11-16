@@ -147,15 +147,15 @@ jobs:
       - name: Terraform Workspace
         run: terraform workspace select -or-create global
 
+      - name: Display structure of downloaded files
+        run: ls -R
+
       # Download saved plan from artifacts
       - name: Download Terraform Plan
         uses: actions/download-artifact@v3
         with:
           name: deployment-artifacts
           path: tfplan
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
       # Terraform Apply
       - name: Terraform Apply

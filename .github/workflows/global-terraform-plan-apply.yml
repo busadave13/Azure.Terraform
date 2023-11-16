@@ -163,6 +163,9 @@ jobs:
         with:
           name: deployment-artifacts
           path: tfplan
+      
+      - name: Display structure of downloaded files
+        run: ls -R
 
       # Terraform Apply
       - name: Terraform Apply

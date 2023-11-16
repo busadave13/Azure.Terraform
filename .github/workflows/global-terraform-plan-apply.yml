@@ -62,7 +62,6 @@ jobs:
       # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
       - name: Terraform Plan
         id: tf-plan
-        working-directory: "./infrastructure/global"
         run: |
           export exitcode=0
           terraform plan -detailed-exitcode -no-color -out tfplan --var-file=parameters.staging.tfvars || export exitcode=$?
@@ -144,13 +143,9 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-        # Set terraform workspace
+         # Set terraform workspace
       - name: Terraform Workspace
-        run: terraform workspace list
-
-        # Set terraform workspace
-      - name: Terraform Workspace
-        run: terraform workspace select global
+        run: terraform workspace select -or-create global
 
       # Download saved plan from artifacts
       - name: Download Terraform Plan

@@ -51,7 +51,7 @@ jobs:
 
       # Set terraform workspace
       - name: Terraform Workspace
-        run: terraform workspace select  -or-create network
+        run: terraform workspace select -or-create network
 
       # Checks that all Terraform configuration files adhere to a canonical format
       # Will fail the build if not
@@ -145,7 +145,7 @@ jobs:
 
       # Set terraform workspace
       - name: Terraform Workspace
-        run: terraform workspace select  -or-create network
+        run: terraform workspace select -or-create network
 
       # Download saved plan from artifacts
       - name: Download Terraform Plan

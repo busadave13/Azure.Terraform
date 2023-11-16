@@ -36,19 +36,3 @@ module "acr" {
   resource_group_name = azurerm_resource_group.rg.name
   tags                = local.tags
 }
-
-output "containerRegistryId" {
-  value = module.acr.container_registry_id
-}
-
-output "containerRegistryName" {
-  value = module.acr.container_registry_name
-}
-
-output "logAnalyticsWorkspaceId" {
-  value = module.law.log_analytics_workspace_id
-}
-
-output "logAnalyticsWorkspaceName" {
-  value = module.law.log_analytics_workspace_name
-}

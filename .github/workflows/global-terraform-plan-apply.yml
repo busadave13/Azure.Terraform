@@ -45,6 +45,10 @@ jobs:
       with:
         terraform_wrapper: false
 
+    # Set terraform workspace
+    - name: Terraform Workspace
+      run: terraform workspace select global -or-create
+
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init

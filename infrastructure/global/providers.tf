@@ -7,6 +7,7 @@ terraform {
   }
   required_version = ">= 1.1.0"
   backend "azurerm" {
+    workspace            = "global"
     resource_group_name  = "terraform-state-staging"
     container_name       = "terraform-state"
     key                  = "terraform.tfstate"

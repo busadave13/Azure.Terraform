@@ -1,4 +1,4 @@
-name: 'Terraform Plan/Apply'
+name: 'Global Terraform Plan/Apply'
 
 on:
   workflow_dispatch:
@@ -30,6 +30,9 @@ jobs:
       ARM_SKIP_PROVIDER_REGISTRATION: true
     outputs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
+    defaults:
+      run:
+        working-directory: ./infrastructure/global
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -44,13 +47,11 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      working-directory: "./infrastructure/global"
       run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     # Will fail the build if not
     - name: Terraform Format
-      working-directory: "./infrastructure/global"
       run: terraform fmt -check
 
     # Generates an execution plan for Terraform
@@ -60,7 +61,7 @@ jobs:
       working-directory: "./infrastructure/global"
       run: |
         export exitcode=0
-        terraform plan -detailed-exitcode -out tf.plan --var-file=parameters.staging.tfvars || export exitcode=$?
+        terraform plan -detailed-exitcode -no-color -out tf.plan --var-file=parameters.staging.tfvars || export exitcode=$?
 
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
         
@@ -76,14 +77,13 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: deployment-artifacts
-        path: infrastructure/global/tf.plan
+        path: infrastructure/network/tf.plan
         
     # Create string output of Terraform Plan
     - name: Create String Output
       id: tf-plan-string
-      working-directory: "./infrastructure/global"
       run: |
-        TERRAFORM_PLAN=$(terraform show tf.plan)
+        TERRAFORM_PLAN=$(terraform show -no-color tf.plan)
         
         delimiter="$(openssl rand -hex 8)"
         echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
@@ -138,7 +138,6 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      working-directory: "./infrastructure/global"
       run: terraform init
 
     # Download saved plan from artifacts  
@@ -148,11 +147,9 @@ jobs:
         name: deployment-artifacts
         path: infrastructure/global/tf.plan
 
-    - name: Display structure of downloaded files
-      working-directory: "./infrastructure/global"      
+    - name: Display structure of downloaded files  
       run: ls -R
   
     # Terraform Apply
     - name: Terraform Apply
-      working-directory: "./infrastructure/global"
-      run: terraform apply -auto-approve ./tf.plan/tf.plan
+      run: terraform apply -auto-approve ./infrastructure/global/tf.plan/tf.plan

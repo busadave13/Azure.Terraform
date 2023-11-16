@@ -1,4 +1,4 @@
-name: "Terraform Drift Detection"
+name: "Global Terraform Drift Detection"
 
 on:
   workflow_dispatch:

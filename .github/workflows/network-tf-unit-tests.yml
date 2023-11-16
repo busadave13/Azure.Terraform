@@ -1,4 +1,4 @@
-name: "network terraform unit tests"
+name: "Network TF Unit Tests"
 
 on:
   workflow_dispatch:
@@ -11,6 +11,9 @@ jobs:
   terraform-unit-tests:
     name: "Terraform Unit Tests"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infrastructure/network
 
     steps:
       # Checkout the repository to the GitHub Actions runner
@@ -23,17 +26,14 @@ jobs:
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        working-directory: "$WORKING_DIRECTORY"
         run: terraform init -backend=false
 
       # Validate terraform files
       - name: Terraform Validate
-        working-directory: "$WORKING_DIRECTORY"
         run: terraform validate
 
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
-        working-directory: "$WORKING_DIRECTORY"
         run: terraform fmt -check -recursive
 
       # Perform a security scan of the terraform code using checkov

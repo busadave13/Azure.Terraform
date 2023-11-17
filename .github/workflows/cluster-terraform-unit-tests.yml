@@ -1,4 +1,4 @@
-name: "Network Terraform Unit Tests"
+name: "Cluster Terraform Unit Tests"
 
 on:
   workflow_dispatch:

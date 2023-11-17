@@ -1,4 +1,3 @@
-
 locals {
   resource_group_name = "${var.workspace}-${var.environment}"
   tags = {
@@ -25,7 +24,7 @@ resource "azurerm_resource_group" "rg" {
   name     = local.resource_group_name
   location = var.location
 
-  tags = var.tags
+  tags = local.tags
 }
 
 resource "azurerm_user_assigned_identity" "base" {
@@ -57,14 +56,13 @@ module "cluster" {
   worker_pool_node_count = var.worker_pool_node_count
   vm_sku_system_pool     = var.vm_sku_system_pool
   vm_sku_worker_pool     = var.vm_sku_worker_pool
-  os_sku_system          = var.os_sku_system
-  os_sku_worker          = var.os_sku_worker
+  os_sku                 = var.os_sku
   use_availability_zones = var.use_availability_zones
   max_pods               = var.max_pods
   os_disk_size_gb        = var.os_disk_size_gb
   system_subnet_id       = data.terraform_remote_state.global.outputs.system_subnet_id
   worker_subnet_id       = data.terraform_remote_state.global.outputs.worker_subnet_id
-  identities = [azurerm_user_assigned_identity.base.id]
-  tags       = var.tags
+  identities             = [azurerm_user_assigned_identity.base.id]
+  tags                   = local.tags
 }
 

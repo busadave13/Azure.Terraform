@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     os_disk_size_gb              = var.os_disk_size_gb
     zones                        = var.use_availability_zones ? ["1", "2", "3"] : []
     os_disk_type                 = "Managed"
-    os_sku                       = var.os_sku_system
+    os_sku                       = var.os_sku
     enable_host_encryption       = false
     orchestrator_version         = var.kubernetes_version
     type                         = "VirtualMachineScaleSets"

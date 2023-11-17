@@ -33,17 +33,10 @@ variable "vm_sku_system_pool" {
 variable "vm_sku_worker_pool" {
   type = string
 }
-variable "os_sku_system" {
+variable "os_sku" {
   type = string
   validation {
-    condition     = contains(["CBLMariner", "Mariner"], var.os_sku_system)
-    error_message = "Valid values are CBLMariner and Mariner"
-  }
-}
-variable "os_sku_worker" {
-  type = string
-  validation {
-    condition     = contains(["CBLMariner", "Mariner"], var.os_sku_worker)
+    condition     = contains(["CBLMariner", "Mariner"], var.os_sku)
     error_message = "Valid values are CBLMariner and Mariner"
   }
 }

@@ -8,11 +8,6 @@ variable "environment" {
   type        = string
 }
 
-variable "resource_group_name" {
-  description = "The name of the resource group to deploy all resources."
-  type        = string
-}
-
 variable "workspace" {
   description = "The name of the workspace to deploy all resources."
   type        = string

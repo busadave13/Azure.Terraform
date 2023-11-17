@@ -3,6 +3,10 @@ name: "Global Terraform Unit Tests"
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+    paths:
+      - 'infrastructure/global**'
 
 jobs:
   terraform-unit-tests:

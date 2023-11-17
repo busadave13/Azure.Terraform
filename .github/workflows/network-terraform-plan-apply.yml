@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - main
+      - main
     paths:
-      - 'infrastructure/network**'
+      - "infrastructure/network**"
   # pull_request:
   #   branches:
   #   - main
@@ -22,6 +22,7 @@ env:
   ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
   ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+  TF_WORKSPACE: network
 
 jobs:
   terraform-plan:
@@ -53,7 +54,7 @@ jobs:
 
       # Set terraform workspace
       - name: Terraform Workspace
-        run: terraform workspace select -or-create network
+        run: terraform workspace select -or-create $TF_WORKSPACE
 
       # Checks that all Terraform configuration files adhere to a canonical format
       # Will fail the build if not

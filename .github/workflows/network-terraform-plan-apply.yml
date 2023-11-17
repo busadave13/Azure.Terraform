@@ -55,7 +55,7 @@ jobs:
 
       # Set terraform workspace
       - name: Terraform Workspace
-        run: "terraform workspace select -or-create $WORKSPACE"
+        run: terraform workspace select -or-create ${{env.WORKSPACE}}
 
       # Checks that all Terraform configuration files adhere to a canonical format
       # Will fail the build if not

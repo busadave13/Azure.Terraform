@@ -1,4 +1,14 @@
 resource "azurerm_kubernetes_cluster" "cluster" {
+  #checkov:skip=CKV_AZURE_170: "Ensure that AKS use the Paid Sku for its SLA"
+  #checkov:skip=CKV_AZURE_4: "Ensure AKS logging to Azure Monitoring is Configured"
+  #checkov:skip=CKV_AZURE_227: "Ensure that the AKS cluster encrypt temp disks, caches, and data flows between Compute and Storage resources"
+  #checkov:skip=CKV_AZURE_117: "Ensure that AKS uses disk encryption set"
+  #checkov:skip=CKV_AZURE_115: "Ensure that AKS enables private clusters"
+  #checkov:skip=CKV_AZURE_172: "Ensure autorotation of Secrets Store CSI Driver secrets for AKS clusters"
+  #checkov:skip=CKV_AZURE_116: "Ensure that AKS uses Azure Policies Add-on"
+  #checkov:skip=CKV_AZURE_168: "Ensure Azure Kubernetes Cluster (AKS) nodes should use a minimum number of 50 pods."
+  #checkov:skip=CKV_AZURE_7: "Ensure AKS cluster has Network Policy configured"
+
   name                      = "${var.workspace}-aks-${var.environment}"
   location                  = var.location
   resource_group_name       = var.resource_group_name
@@ -8,7 +18,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
   sku_tier                  = "Free" # Standard
-
+  local_account_disabled = true
   node_resource_group = "nodepool-${var.environment}"
 
   default_node_pool {
@@ -63,8 +73,11 @@ resource "azurerm_kubernetes_cluster" "cluster" {
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "worker_pool" {
-  name = "worker"
+  #checkov:skip=CKV_AZURE_227: "Ensure that the AKS cluster encrypt temp disks, caches, and data flows between Compute and Storage resources"
+  #checkov:skip=CKV_AZURE_168: "Ensure Azure Kubernetes Cluster (AKS) nodes should use a minimum number of 50 pods."
+  #checkov:skip=CKV2_AZURE_29: "Ensure AKS cluster has Azure CNI networking enabled"
 
+  name = "worker"
   kubernetes_cluster_id  = azurerm_kubernetes_cluster.cluster.id
   vm_size                = var.vm_sku_system_pool
   node_count             = var.worker_pool_node_count

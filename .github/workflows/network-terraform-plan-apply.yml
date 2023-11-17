@@ -1,11 +1,11 @@
 name: "Network Terraform Plan/Apply"
 
-on: 
+on:
   push:
     branches:
-    - main
+      - main
     paths:
-    - 'infrastructure/network/**'
+      - "infrastructure/network/**"
   # pull_request:
   #   branches:
   #   - main
@@ -152,7 +152,7 @@ jobs:
 
       # Set terraform workspace
       - name: Terraform Workspace
-        run: terraform workspace select -or-create ${{env.WORKSPACE
+        run: terraform workspace select -or-create ${{env.WORKSPACE}}
 
       # Download saved plan from artifacts
       - name: Download Terraform Plan

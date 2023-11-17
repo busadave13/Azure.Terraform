@@ -7,7 +7,7 @@ variable "location" {
 variable "workspace" {
   type = string
 }
- variable "resource_group_name" {
+variable "resource_group_name" {
   type = string
 }
 variable "kubernetes_version" {

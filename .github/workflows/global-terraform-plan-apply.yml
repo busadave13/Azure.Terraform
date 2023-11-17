@@ -144,7 +144,7 @@ jobs:
     defaults:
       run:
         working-directory: ./infrastructure/global
-        
+
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -153,8 +153,6 @@ jobs:
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_wrapper: false
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -183,4 +181,4 @@ jobs:
 
       # Terraform Apply
       - name: Terraform Apply
-        run: terraform apply -auto-approve ./tfplan/infrastructure/global/tfplan
+        run: terraform apply -auto-approve ./tfplan/tfplan

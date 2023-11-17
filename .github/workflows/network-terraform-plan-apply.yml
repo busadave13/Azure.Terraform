@@ -3,10 +3,9 @@ name: "Network Terraform Plan/Apply"
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - "infrastructure/network/**"
+      - 'infrastructure/network/**'
   # pull_request:
   #   branches:
   #   - main
@@ -152,7 +151,7 @@ jobs:
 
       # Set terraform workspace
       - name: Terraform Workspace
-        run: terraform workspace select -or-create network
+        run: "terraform workspace select -or-create $WORKSPACE"
 
       # Download saved plan from artifacts
       - name: Download Terraform Plan

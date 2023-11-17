@@ -2,7 +2,7 @@ name: "Network Terraform Unit Tests"
 
 on:
   workflow_dispatch:
-  # push:
+  push:
 
 jobs:
   terraform-unit-tests:

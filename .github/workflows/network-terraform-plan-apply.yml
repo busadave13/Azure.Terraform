@@ -24,7 +24,7 @@ env:
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
   WORKSPACE: network
   WORKING_DIR: infrastructure/network
-  AZURE_ENVIRONMENT: "${{ var.AZURE_TENANT_ID }}"
+  AZURE_ENVIRONMENT: "${{ var.ENVIRONMENT }}"
 
 jobs:
   terraform-plan:

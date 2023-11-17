@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - "infrastructure/network/**"
+      - "infrastructure/cluster/**"
 
 jobs:
   terraform-unit-tests:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./infrastructure/network
+        working-directory: ./infrastructure/cluster
 
     steps:
       # Checkout the repository to the GitHub Actions runner

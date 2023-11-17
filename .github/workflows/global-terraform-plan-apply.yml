@@ -141,7 +141,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: [terraform-plan]
-
+    defaults:
+      run:
+        working-directory: ./infrastructure/global
+        
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout

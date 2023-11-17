@@ -49,9 +49,15 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Display structure of downloaded files
+        run: ls -R
+
         # Set terraform workspace
       - name: Terraform Workspace
         run: terraform workspace select -or-create global
+
+      - name: Display structure of downloaded files
+        run: ls -R
 
       # Checks that all Terraform configuration files adhere to a canonical format
       # Will fail the build if not
@@ -74,9 +80,6 @@ jobs:
           else 
             exit 0
           fi
-
-      - name: Display structure of downloaded files
-        run: ls
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -149,7 +152,8 @@ jobs:
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        run: terraform init
+        run:
+          terraform init
 
           # Set terraform workspace
       - name: Terraform Workspace
@@ -164,7 +168,7 @@ jobs:
         with:
           name: deployment-artifacts
           path: tfplan
-      
+
       - name: Display structure of downloaded files
         run: ls -R
 

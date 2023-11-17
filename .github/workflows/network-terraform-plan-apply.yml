@@ -36,7 +36,7 @@ jobs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
     defaults:
       run:
-        working-directory: "$WORKING_DIR"
+        working-directory: ${{env.WORKING_DIR}}
 
     steps:
       # Checkout the repository to the GitHub Actions runner

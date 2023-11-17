@@ -1,14 +1,15 @@
 name: "Network Terraform Plan/Apply"
 
-on:
-  workflow_dispatch:
+on: 
   push:
-    branches: [main]
+    branches:
+    - main
     paths:
-      - 'infrastructure/network/**'
+    - 'infrastructure/network/**'
   # pull_request:
   #   branches:
   #   - main
+  workflow_dispatch:
 
 #Special permissions required for OIDC authentication
 permissions:
@@ -22,6 +23,7 @@ env:
   ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
   WORKSPACE: network
+  WORKING_DIR: ./infrastructure/network
 
 jobs:
   terraform-plan:
@@ -30,12 +32,11 @@ jobs:
     env:
       #this is needed since we are running terraform with read-only permissions
       ARM_SKIP_PROVIDER_REGISTRATION: true
-      WORKSPACE: network
     outputs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
     defaults:
       run:
-        working-directory: ./infrastructure/network
+        working-directory: "$WORKING_DIR"
 
     steps:
       # Checkout the repository to the GitHub Actions runner

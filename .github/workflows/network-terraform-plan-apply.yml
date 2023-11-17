@@ -2,9 +2,11 @@ name: "Network Terraform Plan/Apply"
 
 on:
   workflow_dispatch:
-  #push:
-  #  branches:
-  #  - main
+  push:
+    branches:
+    - main
+    paths:
+      - 'infrastructure/network**'
   # pull_request:
   #   branches:
   #   - main
@@ -129,6 +131,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: [terraform-plan]
+    defaults:
+      run:
+        working-directory: ./infrastructure/network
 
     steps:
       # Checkout the repository to the GitHub Actions runner
@@ -154,9 +159,6 @@ jobs:
           name: deployment-artifacts
           path: infrastructure/network/tfplan
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
       # Terraform Apply
       - name: Terraform Apply
-        run: terraform apply -auto-approve ./infrastructure/network/tfplan/tfplan
+        run: terraform apply -auto-approve ./tfplan/tfplan

@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'infrastructure/global**'
   # pull_request:
   #   branches:
   #   - main
@@ -45,22 +47,13 @@ jobs:
         with:
           terraform_wrapper: false
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
         # Set terraform workspace
       - name: Terraform Workspace
         run: terraform workspace select -or-create global
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
       # Checks that all Terraform configuration files adhere to a canonical format
       # Will fail the build if not
@@ -83,9 +76,6 @@ jobs:
           else 
             exit 0
           fi
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
       # Save plan to artifacts
       - name: Publish Terraform Plan
@@ -154,9 +144,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run:
@@ -166,18 +153,12 @@ jobs:
       - name: Terraform Workspace
         run: terraform workspace select -or-create global
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
       # Download saved plan from artifacts
       - name: Download Terraform Plan
         uses: actions/download-artifact@v3
         with:
           name: deployment-artifacts
           path: infrastructure/global/tfplan
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
       # Terraform Apply
       - name: Terraform Apply

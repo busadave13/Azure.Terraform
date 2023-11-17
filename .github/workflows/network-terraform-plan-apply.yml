@@ -30,7 +30,7 @@ jobs:
     env:
       #this is needed since we are running terraform with read-only permissions
       ARM_SKIP_PROVIDER_REGISTRATION: true
-      TF_WORKSPACE: network
+      WORKSPACE: network
     outputs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
     defaults:
@@ -54,8 +54,7 @@ jobs:
 
       # Set terraform workspace
       - name: Terraform Workspace
-        run: |
-          terraform workspace select -or-create $TF_WORKSPACE
+        run: terraform workspace select -or-create "${{WORKSPACE}}"
 
       # Checks that all Terraform configuration files adhere to a canonical format
       # Will fail the build if not

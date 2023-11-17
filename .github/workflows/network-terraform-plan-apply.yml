@@ -23,7 +23,7 @@ env:
   ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
   WORKSPACE: network
-  WORKING_DIR: ./infrastructure/network
+  WORKING_DIR: infrastructure/network
 
 jobs:
   terraform-plan:
@@ -36,7 +36,7 @@ jobs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
     defaults:
       run:
-        working-directory: ${{env.WORKING_DIR}}"
+        working-directory: "$WORKING_DIR"
 
     steps:
       # Checkout the repository to the GitHub Actions runner

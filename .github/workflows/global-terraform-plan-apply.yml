@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deployment-artifacts
-          path: "**/tfplan"
+          path: infrastructure/global/tfplan
 
       # Create string output of Terraform Plan
       - name: Create String Output
@@ -174,11 +174,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: deployment-artifacts
-          path: tfplan
+          path: infrastructure/global/tfplan
 
       - name: Display structure of downloaded files
         run: ls -R
 
       # Terraform Apply
       - name: Terraform Apply
-        run: terraform apply -auto-approve ./tfplan/tfplan
+        run: terraform apply -auto-approve infrastructure/global/tfplan/tfplan
